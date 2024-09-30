@@ -1,5 +1,5 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:boxigoapp/viewdetailslayout.dart';
 
@@ -12,14 +12,13 @@ class ResponsiveBoxWithColumn extends StatefulWidget {
 }
 
 class _ResponsiveBoxWithColumnState extends State<ResponsiveBoxWithColumn> {
-  // Fetch API data
   Future<List<dynamic>> fetchApiData() async {
     final response =
         await http.get(Uri.parse('http://test.api.boxigo.in/sample-data/'));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
-      return data['Customer_Estimate_Flow']; // Return list of estimates
+      return data['Customer_Estimate_Flow'];
     } else {
       throw Exception('Failed to load data');
     }
@@ -50,16 +49,25 @@ class _ResponsiveBoxWithColumnState extends State<ResponsiveBoxWithColumn> {
 
                 return Column(
                   children: [
-                    Card(
-                      color: Colors.white,
+                    Container(
                       margin: EdgeInsets.zero,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 5,
+                            offset: Offset(0, 2),
+                          ),
+                        ],
+                      ),
                       child: Stack(
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: Row(
                               children: [
-                                // Left Column inside the Card with a defined width
                                 Container(
                                   width: 80,
                                   height: 400,
@@ -95,32 +103,28 @@ class _ResponsiveBoxWithColumnState extends State<ResponsiveBoxWithColumn> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      // "Moving From" field wrapped in a Column with yellow background
+                                      // "Moving From" field
                                       Container(
                                         color: Colors.yellow,
-                                        height:
-                                            50, // Decrease height to pull it closer to the top
-                                        alignment: Alignment
-                                            .topLeft, // Align content to the top left
+                                        height: 50,
+                                        alignment: Alignment.topLeft,
                                         padding: const EdgeInsets.only(
-                                            top: 8.0), // Add padding if needed
+                                            top: 0.0), // Removed padding to move text up
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment
-                                              .start, // Align items to the start
-                                          crossAxisAlignment: CrossAxisAlignment
-                                              .start, // Align items to the top
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Expanded(
-                                              // Use Expanded to allow text to wrap
                                               child: Text(
                                                 '$movingFrom',
                                                 style: const TextStyle(
-                                                  fontSize: 14,
+                                                  fontSize: 16,
                                                   fontWeight: FontWeight.normal,
                                                 ),
-                                                maxLines: 2, // Limit to 2 lines
-                                                overflow: TextOverflow
-                                                    .ellipsis, // Show ellipsis if overflow
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
                                               ),
                                             ),
                                           ],
@@ -129,7 +133,7 @@ class _ResponsiveBoxWithColumnState extends State<ResponsiveBoxWithColumn> {
 
                                       const SizedBox(height: 8),
 
-                                      // Horizontal container with image instead of arrow icon
+                                      // Horizontal container with image
                                       SingleChildScrollView(
                                         scrollDirection: Axis.horizontal,
                                         child: Container(
@@ -143,7 +147,7 @@ class _ResponsiveBoxWithColumnState extends State<ResponsiveBoxWithColumn> {
                                               Container(
                                                 height: 40,
                                                 child: Image.asset(
-                                                  'assets/images/arrow.png', // Replace with the path to your image
+                                                  'assets/images/arrow.png',
                                                   width: 40,
                                                   height: 40,
                                                 ),
@@ -201,26 +205,21 @@ class _ResponsiveBoxWithColumnState extends State<ResponsiveBoxWithColumn> {
                                           ),
                                         ),
                                       ),
-                                      const SizedBox(
-                                          height: 8), // Adjust space as needed
+                                      const SizedBox(height: 8),
 
-                                      // "Moving To" field wrapped in a Column with yellow background
+                                      // "Moving To" field
                                       Container(
-                                        padding:
-                                            const EdgeInsets.only(top: 38.0),
                                         color: Colors.yellow,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              '$movingTo',
-                                              style: const TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.normal,
-                                              ),
-                                            ),
-                                          ],
+                                        height: 50,
+                                        alignment: Alignment.topLeft,
+                                        padding: const EdgeInsets.only(
+                                            top: 0.0), // Removed padding to move text up
+                                        child: Text(
+                                          '$movingTo',
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.normal,
+                                          ),
                                         ),
                                       ),
 
