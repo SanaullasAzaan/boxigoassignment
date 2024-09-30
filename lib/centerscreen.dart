@@ -65,7 +65,8 @@ class _ResponsiveBoxWithColumnState extends State<ResponsiveBoxWithColumn> {
                                   height: 400,
                                   color: Colors.white,
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
@@ -91,8 +92,43 @@ class _ResponsiveBoxWithColumnState extends State<ResponsiveBoxWithColumn> {
                                 // Expanded content
                                 Expanded(
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
+                                      // "Moving From" field wrapped in a Column with yellow background
+                                      Container(
+                                        color: Colors.yellow,
+                                        height:
+                                            50, // Decrease height to pull it closer to the top
+                                        alignment: Alignment
+                                            .topLeft, // Align content to the top left
+                                        padding: const EdgeInsets.only(
+                                            top: 8.0), // Add padding if needed
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment
+                                              .start, // Align items to the start
+                                          crossAxisAlignment: CrossAxisAlignment
+                                              .start, // Align items to the top
+                                          children: [
+                                            Expanded(
+                                              // Use Expanded to allow text to wrap
+                                              child: Text(
+                                                '$movingFrom',
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.normal,
+                                                ),
+                                                maxLines: 2, // Limit to 2 lines
+                                                overflow: TextOverflow
+                                                    .ellipsis, // Show ellipsis if overflow
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+
+                                      const SizedBox(height: 8),
+
                                       // Horizontal container with image instead of arrow icon
                                       SingleChildScrollView(
                                         scrollDirection: Axis.horizontal,
@@ -101,29 +137,32 @@ class _ResponsiveBoxWithColumnState extends State<ResponsiveBoxWithColumn> {
                                               vertical: 10.0, horizontal: 1.0),
                                           color: Colors.white,
                                           child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
                                             children: [
                                               Container(
                                                 height: 40,
                                                 child: Image.asset(
-                                                  'assets/images/arrow_down.png', // Replace with the path to your image
+                                                  'assets/images/arrow.png', // Replace with the path to your image
                                                   width: 40,
                                                   height: 40,
                                                 ),
                                               ),
-                                              const SizedBox(width: 14),
+                                              const SizedBox(width: 0),
                                               Column(
                                                 children: [
                                                   const Icon(Icons.home,
                                                       color: Colors.orange),
                                                   Text(
-                                                      '${customerEstimate['property_size']}',
-                                                      style: const TextStyle(
-                                                          fontSize: 12,
-                                                          color: Colors.black)),
+                                                    '${customerEstimate['property_size']}',
+                                                    style: const TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.black,
+                                                    ),
+                                                  ),
                                                 ],
                                               ),
-                                              const SizedBox(width: 14),
+                                              const SizedBox(width: 26),
                                               const Column(
                                                 children: [
                                                   Icon(Icons.list,
@@ -133,7 +172,7 @@ class _ResponsiveBoxWithColumnState extends State<ResponsiveBoxWithColumn> {
                                                           color: Colors.black)),
                                                 ],
                                               ),
-                                              const SizedBox(width: 14),
+                                              const SizedBox(width: 26),
                                               const Column(
                                                 children: [
                                                   Icon(Icons.check_box,
@@ -143,47 +182,63 @@ class _ResponsiveBoxWithColumnState extends State<ResponsiveBoxWithColumn> {
                                                           color: Colors.black)),
                                                 ],
                                               ),
-                                              const SizedBox(width: 14),
+                                              const SizedBox(width: 26),
                                               Column(
                                                 children: [
-                                                  const Icon(Icons.travel_explore,
+                                                  const Icon(
+                                                      Icons.travel_explore,
                                                       color: Colors.orange),
-                                                  Text('${customerEstimate['distance']}',
-                                                      style: const TextStyle(
-                                                          fontSize: 12,
-                                                          color: Colors.black)),
+                                                  Text(
+                                                    '${customerEstimate['distance']}',
+                                                    style: const TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.black,
+                                                    ),
+                                                  ),
                                                 ],
                                               ),
                                             ],
                                           ),
                                         ),
                                       ),
-                                      const SizedBox(height: 16), // Spacing between icons and text
+                                      const SizedBox(
+                                          height: 8), // Adjust space as needed
 
-                                      Text(
-                                        '$movingFrom',
-                                        style: const TextStyle(
-                                            fontSize: 14, fontWeight: FontWeight.normal),
+                                      // "Moving To" field wrapped in a Column with yellow background
+                                      Container(
+                                        padding:
+                                            const EdgeInsets.only(top: 38.0),
+                                        color: Colors.yellow,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              '$movingTo',
+                                              style: const TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                      const SizedBox(height: 8),
-                                      Text(
-                                        '$movingTo',
-                                        style: const TextStyle(
-                                            fontSize: 14, fontWeight: FontWeight.normal),
-                                      ),
+
                                       const SizedBox(height: 16),
 
                                       // Row for buttons
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           ElevatedButton(
                                             onPressed: () {
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        const DetailsLayout()),
+                                                  builder: (context) =>
+                                                      const DetailsLayout(),
+                                                ),
                                               );
                                             },
                                             style: ElevatedButton.styleFrom(
@@ -191,9 +246,12 @@ class _ResponsiveBoxWithColumnState extends State<ResponsiveBoxWithColumn> {
                                                   color: Colors.orange),
                                               backgroundColor: Colors.white,
                                               foregroundColor: Colors.orange,
-                                              padding: const EdgeInsets.symmetric(
-                                                  vertical: 12, horizontal: 24),
-                                              shape: const RoundedRectangleBorder(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 12,
+                                                      horizontal: 24),
+                                              shape:
+                                                  const RoundedRectangleBorder(
                                                 borderRadius: BorderRadius.zero,
                                               ),
                                             ),
@@ -205,8 +263,9 @@ class _ResponsiveBoxWithColumnState extends State<ResponsiveBoxWithColumn> {
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        const DetailsLayout()),
+                                                  builder: (context) =>
+                                                      const DetailsLayout(),
+                                                ),
                                               );
                                             },
                                             style: ElevatedButton.styleFrom(
@@ -214,9 +273,12 @@ class _ResponsiveBoxWithColumnState extends State<ResponsiveBoxWithColumn> {
                                                   color: Colors.orange),
                                               backgroundColor: Colors.white,
                                               foregroundColor: Colors.orange,
-                                              padding: const EdgeInsets.symmetric(
-                                                  vertical: 12, horizontal: 24),
-                                              shape: const RoundedRectangleBorder(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 12,
+                                                      horizontal: 24),
+                                              shape:
+                                                  const RoundedRectangleBorder(
                                                 borderRadius: BorderRadius.zero,
                                               ),
                                             ),
@@ -262,7 +324,7 @@ class _ResponsiveBoxWithColumnState extends State<ResponsiveBoxWithColumn> {
                     ),
                     Divider(
                       height: 1,
-                      thickness: 1,
+                      thickness: 2,
                       color: Colors.grey[300],
                     ),
                   ],
