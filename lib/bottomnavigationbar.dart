@@ -23,7 +23,17 @@ class _BottomNavBarState extends State<BottomNavBar> {
       // Wrapping with SafeArea ensures it respects device's safe areas (e.g., bottom notches)
       child: Container(
         height: 60, // Adjust this height as necessary
-        color: Colors.white, // Set background color to white
+        decoration: BoxDecoration(
+          color: Colors.white, // Set background color to white
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26, // Shadow color
+              blurRadius: 8, // Amount of blur for the shadow
+              spreadRadius: 0, // How far the shadow spreads
+              offset: Offset(0, -4), // Offset to place shadow above (y-axis)
+            ),
+          ],
+        ),
         child: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(

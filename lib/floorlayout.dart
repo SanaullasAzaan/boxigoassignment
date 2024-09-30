@@ -63,7 +63,7 @@ class _FloorMovementState extends State<FloorMovement> {
           oldFloorNo: oldFloorNo,
           newFloorNo: newFloorNo,
           packingService: packingService,
-          parkingDistance: parkingDistance,
+          parkingDistance: parkingDistance, details: const [],
         );
       case 'items':
       default:

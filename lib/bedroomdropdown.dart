@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class CustomDropdownMenu extends StatefulWidget {
-  const CustomDropdownMenu({super.key});
+class BedroomLayout extends StatefulWidget {
+  const BedroomLayout({super.key});
 
   @override
-  _CustomDropdownMenuState createState() => _CustomDropdownMenuState();
+  _BedroomLayoutState createState() => _BedroomLayoutState();
 }
 
-class _CustomDropdownMenuState extends State<CustomDropdownMenu> {
+class _BedroomLayoutState extends State<BedroomLayout> {
   bool isDropdownOpen = false; // Track whether dropdown is open or closed
   List<Map<String, String>> dropdownItems = []; // List to hold fetched items with details
 
@@ -83,7 +83,7 @@ class _CustomDropdownMenuState extends State<CustomDropdownMenu> {
               children: [
                 // Title at the left end
                 const Text(
-                  'Living Room', // Static title that doesn't change
+                  'Bedroom', // Static title that doesn't change
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,

@@ -15,7 +15,17 @@ class _ScrollableNavBarState extends State<ScrollableNavBar> {
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 600), // Set max width constraint
       child: Container(
-        color: Colors.white, // Background color of the nav bar
+        decoration: BoxDecoration(
+          color: Colors.white, // Background color of the nav bar
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black, // Shadow color
+              blurRadius: 8, // Amount of blur for the shadow
+              spreadRadius: 0, // How far the shadow spreads
+              offset: Offset(0, 4), // Offset the shadow vertically downwards (y-axis)
+            ),
+          ],
+        ),
         height: 40, // Reduced height of the nav bar
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,

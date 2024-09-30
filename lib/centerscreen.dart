@@ -83,7 +83,7 @@ class _ResponsiveBoxWithColumnState extends State<ResponsiveBoxWithColumn> {
                                         style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.orange,
+                                           color: Color(0xFFFF5722),
                                         ),
                                       ),
                                       Text(
@@ -105,11 +105,11 @@ class _ResponsiveBoxWithColumnState extends State<ResponsiveBoxWithColumn> {
                                     children: [
                                       // "Moving From" field
                                       Container(
-                                        color: Colors.yellow,
+                                       // color: Colors.yellow,
                                         height: 50,
                                         alignment: Alignment.topLeft,
                                         padding: const EdgeInsets.only(
-                                            top: 0.0), // Removed padding to move text up
+                                            top: 0.0),
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
@@ -119,8 +119,9 @@ class _ResponsiveBoxWithColumnState extends State<ResponsiveBoxWithColumn> {
                                             Expanded(
                                               child: Text(
                                                 '$movingFrom',
-                                                style: const TextStyle(
+                                                style: const TextStyle (
                                                   fontSize: 16,
+                                                 
                                                   fontWeight: FontWeight.normal,
                                                 ),
                                                 maxLines: 2,
@@ -207,13 +208,31 @@ class _ResponsiveBoxWithColumnState extends State<ResponsiveBoxWithColumn> {
                                       ),
                                       const SizedBox(height: 8),
 
+                                      // New Row for "Bangalore"
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Bangalore',
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black, // Black bold text color
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+
+                                      const SizedBox(height: 8),
+
                                       // "Moving To" field
                                       Container(
-                                        color: Colors.yellow,
+                                       // color: Colors.,
                                         height: 50,
                                         alignment: Alignment.topLeft,
                                         padding: const EdgeInsets.only(
-                                            top: 0.0), // Removed padding to move text up
+                                            top: 0.0),
                                         child: Text(
                                           '$movingTo',
                                           style: const TextStyle(
@@ -294,7 +313,7 @@ class _ResponsiveBoxWithColumnState extends State<ResponsiveBoxWithColumn> {
                           ),
                           Positioned(
                             top: 10,
-                            right: 20,
+                            right: 30,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -303,7 +322,7 @@ class _ResponsiveBoxWithColumnState extends State<ResponsiveBoxWithColumn> {
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
-                                    color: Color(0xFFFF5722),
+                                    color: Color.fromARGB(255, 0, 0, 0),
                                   ),
                                 ),
                                 const SizedBox(width: 150),
