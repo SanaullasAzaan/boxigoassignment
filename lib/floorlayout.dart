@@ -1,38 +1,28 @@
-
 import 'package:boxigoapp/appbarmain.dart';
-import 'package:boxigoapp/bedroomdropdown.dart';
 import 'package:boxigoapp/bottomnavigationbar.dart';
 import 'package:boxigoapp/customcard.dart';
 import 'package:boxigoapp/customitemsdropdown.dart';
-import 'package:boxigoapp/dropdownmenu.dart';
 import 'package:boxigoapp/floreinfoscreen.dart';
 import 'package:boxigoapp/itemsnavbar.dart';
 import 'package:boxigoapp/rowone.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
-class DetailsLayout extends StatefulWidget {
-  const DetailsLayout({super.key});
+class FloorMovement extends StatefulWidget {
+  const FloorMovement({super.key});
 
   @override
-  _DetailsLayoutState createState() => _DetailsLayoutState();
+  _FloorMovementState createState() => _FloorMovementState();
 }
 
-class _DetailsLayoutState extends State<DetailsLayout> {
+class _FloorMovementState extends State<FloorMovement> {
   int _selectedIndex = 0; // Track the currently selected index
   String _selectedItem = 'items'; // Default selected item
 
-  Future<Map<String, dynamic>> fetchEstimateData() async {
-    final response = await http.get(Uri.parse('http://test.api.boxigo.in/sample-data/'));
-
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      return data['Customer_Estimate_Flow'][0]; // First estimate for now
-    } else {
-      throw Exception('Failed to load estimate data');
-    }
-  }
+  // Simulated static data for demonstration (replace with actual data as needed)
+  final String oldFloorNo = '2';
+  final String newFloorNo = '5';
+  final String packingService = 'Full Service';
+  final String parkingDistance = '20 meters';
 
   void _onItemTapped(String selectedItem) {
     setState(() {
@@ -45,27 +35,14 @@ class _DetailsLayoutState extends State<DetailsLayout> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: const AppBarMain(),
-      body: FutureBuilder<Map<String, dynamic>>(
-        future: fetchEstimateData(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else {
-            final estimate = snapshot.data!;
-
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  const ResponsiveRowone(),
-                  ItemsNavBar(onItemSelected: _onItemTapped),
-                  _getBodyContent(estimate), // Use the estimate data
-                ],
-              ),
-            );
-          }
-        },
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const ResponsiveRowone(),
+            ItemsNavBar(onItemSelected: _onItemTapped),
+            _getBodyContent(), // Now we don't need to pass estimate data
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavBar(
         selectedIndex: _selectedIndex,
@@ -78,16 +55,21 @@ class _DetailsLayoutState extends State<DetailsLayout> {
     );
   }
 
-  Widget _getBodyContent(Map<String, dynamic> estimate) {
+  Widget _getBodyContent() {
     switch (_selectedItem) {
       case 'Floor Info':
-        return DetailsBox(estimateId: estimate['estimate_id']); // Pass estimate data to DetailsBox
+        // Pass the necessary static data to DetailsBox
+        return DetailsBox(
+          oldFloorNo: oldFloorNo,
+          newFloorNo: newFloorNo,
+          packingService: packingService,
+          parkingDistance: parkingDistance,
+        );
       case 'items':
       default:
         return const Column(
           children: [
             SizedBox(height: 16),
-           
             CustomItemDropdown(),
             CustomCard(),
           ],
