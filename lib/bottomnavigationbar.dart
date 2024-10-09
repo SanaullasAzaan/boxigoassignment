@@ -23,7 +23,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       // Wrapping with SafeArea ensures it respects device's safe areas (e.g., bottom notches)
       child: Container(
         height: 60, // Adjust this height as necessary
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white, // Set background color to white
           boxShadow: [
             BoxShadow(

@@ -53,14 +53,7 @@ class _ResponsiveBoxWithColumnState extends State<ResponsiveBoxWithColumn> {
                       margin: EdgeInsets.zero,
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 5,
-                            offset: Offset(0, 2),
-                          ),
-                        ],
+                        borderRadius: BorderRadius.circular(0), 
                       ),
                       child: Stack(
                         children: [
@@ -145,7 +138,7 @@ class _ResponsiveBoxWithColumnState extends State<ResponsiveBoxWithColumn> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.start,
                                             children: [
-                                              Container(
+                                              SizedBox(
                                                 height: 40,
                                                 child: Image.asset(
                                                   'assets/images/arrow.png',
@@ -209,13 +202,13 @@ class _ResponsiveBoxWithColumnState extends State<ResponsiveBoxWithColumn> {
                                       const SizedBox(height: 8),
 
                                       // New Row for "Bangalore"
-                                      Row(
+                                   const   Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         children: [
                                           Text(
                                             'Bangalore',
-                                            style: const TextStyle(
+                                            style:  TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.black, // Black bold text color
@@ -278,13 +271,6 @@ class _ResponsiveBoxWithColumnState extends State<ResponsiveBoxWithColumn> {
                                           ),
                                           ElevatedButton(
                                             onPressed: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const DetailsLayout(),
-                                                ),
-                                              );
                                             },
                                             style: ElevatedButton.styleFrom(
                                               side: const BorderSide(

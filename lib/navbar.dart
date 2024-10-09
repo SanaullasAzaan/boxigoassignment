@@ -15,7 +15,7 @@ class _ScrollableNavBarState extends State<ScrollableNavBar> {
     return ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: 600), // Set max width constraint
       child: Container(
-        decoration: BoxDecoration(
+        decoration:const BoxDecoration(
           color: Colors.white, // Background color of the nav bar
           boxShadow: [
             BoxShadow(

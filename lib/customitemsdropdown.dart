@@ -84,7 +84,7 @@ class _CustomItemDropdownState extends State<CustomItemDropdown> { // Changed st
 
                   // The list of rooms
                   ...dropdownItems.map((String value) {
-                    if (value == 'Kitchen') {
+                    if (value == 'Kitchen') {// if else is used for customize way to background.
                       return _buildCustomRow(
                         icon: Icons.kitchen, // Kitchen icon
                         title: 'Kitchen',

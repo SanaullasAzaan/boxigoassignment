@@ -7,7 +7,7 @@ class ResponsiveRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white, // Set the background color to white
-      padding: const EdgeInsets.symmetric(horizontal: 16.0), // Add horizontal padding
+      padding: const EdgeInsets.symmetric(horizontal: 10.0), // Add horizontal padding
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween, // Space items evenly
         children: [
@@ -22,7 +22,7 @@ class ResponsiveRow extends StatelessWidget {
                 ),
               ),
             const  Padding(
-                padding: const EdgeInsets.all(8.0), // Padding around the text
+                padding:  EdgeInsets.all(8.0), // Padding around the text
                 child: Text(
                   'Leads', // Replace with your app name
                   style: TextStyle(

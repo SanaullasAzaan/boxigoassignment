@@ -99,11 +99,11 @@ class _CustomDropdownMenuState extends State<CustomDropdownMenu> {
               child: Column(
                 children: [
                   // The "Furniture" title inside the dropdown, aligned to the left
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+               const Padding(
+                    padding:  EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
                     child: Align(
                       alignment: Alignment.centerLeft, // Align text to the start (left)
-                      child: const Text(
+                      child:  Text(
                         'Furniture',
                         style: TextStyle(
                           fontSize: 16,

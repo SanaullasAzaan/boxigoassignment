@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+
 
 // DetailsBox Widget to display detailed information
 class DetailsBox extends StatelessWidget {

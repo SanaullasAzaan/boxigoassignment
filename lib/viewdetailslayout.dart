@@ -1,5 +1,4 @@
 import 'package:boxigoapp/appbarmain.dart';
-import 'package:boxigoapp/bedroomdropdown.dart';
 import 'package:boxigoapp/bottomnavigationbar.dart';
 import 'package:boxigoapp/customcard.dart';
 import 'package:boxigoapp/customitemsdropdown.dart';
@@ -100,7 +99,7 @@ class _DetailsLayoutState extends State<DetailsLayout> {
                 newFloorNo: newFloorNo,
                 packingService: packingService,
                 parkingDistance: parkingDistance,
-                details: [], // You can populate this based on your data structure
+                details:const [], // You can populate this based on your data structure
               );
             } else {
               return const Center(child: Text('No data found'));
@@ -112,7 +111,7 @@ class _DetailsLayoutState extends State<DetailsLayout> {
           children: [
             SizedBox(height: 16),
             CustomItemDropdown(),
-            BedroomLayout(),
+         //   BedroomLayout(),
             CustomCard(),
           ],
         ); // Return normal layout for items

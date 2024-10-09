@@ -10,132 +10,131 @@ class BedroomLayout extends StatefulWidget {
 }
 
 class _BedroomLayoutState extends State<BedroomLayout> {
-  bool isDropdownOpen = false; // Track whether dropdown is open or closed
-  List<Map<String, String>> dropdownItems = []; // List to hold fetched items with details
+  bool isDropdownOpen = false;
+  List<Map<String, String>> dropdownItems = [];
 
   @override
   void initState() {
     super.initState();
-    fetchData(); // Fetch data when the widget initializes
+    fetchData();
   }
 
   // Fetch data from API
   Future<void> fetchData() async {
-    final response = await http.get(Uri.parse('http://test.api.boxigo.in/sample-data/'));
+    try {
+      final response = await http.get(Uri.parse('http://test.api.boxigo.in/sample-data/'));
 
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      final inventory = data['Customer_Estimate_Flow'][0]['items']['inventory'];
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        final inventory = data['Customer_Estimate_Flow'][0]['items']['inventory'];
 
-      // Clear previous items
-      dropdownItems.clear();
+        dropdownItems.clear();
 
-      for (var item in inventory) {
-        final categories = item['category'];
-        for (var category in categories) {
-          final items = category['items'];
-          for (var detail in items) {
-            // Fetch the size options
-            List<dynamic> sizes = detail['size'] ?? []; // Use an empty list if size is null
-            String selectedSize = 'Not available';
+        for (var item in inventory) {
+          final categories = item['category'];
+          for (var category in categories) {
+            final items = category['items'];
+            for (var detail in items) {
+              List<dynamic> sizes = detail['size'] ?? [];
+              String selectedSize = 'Not available';
 
-            // Check which size option is selected (i.e., where selected is true)
-            for (var sizeOption in sizes) {
-              if (sizeOption['selected'] == true) {
-                selectedSize = '${sizeOption['option']} (${sizeOption['tooltip']})'; // Format: small (<4 ft)
-                break;
+              for (var sizeOption in sizes) {
+                if (sizeOption['selected'] == true) {
+                  selectedSize = '${sizeOption['option']} (${sizeOption['tooltip']})';
+                  break;
+                }
               }
+
+              String typeOptions = detail['typeOptions'] ?? 'No type options available';
+
+              dropdownItems.add({
+                'displayName': detail['displayName'] ?? 'No display name',
+                'typeOptions': typeOptions,
+                'sizes': selectedSize,
+              });
             }
-
-            // Safely access other fields like typeOptions
-            String typeOptions = detail['typeOptions'] ?? 'No type options available';
-
-            // Add displayName, typeOptions, and selected size to the dropdownItems list
-            dropdownItems.add({
-              'displayName': detail['displayName'] ?? 'No display name', // Provide a default for displayName
-              'typeOptions': typeOptions,
-              'sizes': selectedSize, // Use the selected size
-            });
           }
         }
-      }
 
-      // Trigger a rebuild after fetching data
-      setState(() {});
-    } else {
-      throw Exception('Failed to load data');
+        // Check if the widget is still mounted before calling setState
+        if (mounted) {
+          setState(() {});
+        }
+      } else {
+        throw Exception('Failed to load data');
+      }
+    } catch (e) {
+      print(e); // Handle exceptions, possibly show an error message
     }
+  }
+
+  @override
+  void dispose() {
+    // Clean up resources here if needed (e.g., cancel timers, listeners)
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0), // Optional padding around the column
+      padding: const EdgeInsets.all(8.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start, // Align title and content to the start
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Title and arrow container with grey background
           Container(
-            color: Colors.grey[300], // Set grey background for the title and icon
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0), // Padding for the title and arrow
+            color: Colors.grey[300],
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween, // Space between title and arrow
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // Title at the left end
                 const Text(
-                  'Bedroom', // Static title that doesn't change
+                  'Bedroom',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: Colors.orange, // Orange title color
+                    color: Colors.orange,
                   ),
                 ),
-                // Arrow button at the right end
                 IconButton(
                   icon: Icon(
-                    isDropdownOpen ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down, // Change arrow icon
+                    isDropdownOpen ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
                     color: Colors.orange,
                   ),
                   onPressed: () {
                     setState(() {
-                      isDropdownOpen = !isDropdownOpen; // Toggle dropdown visibility
+                      isDropdownOpen = !isDropdownOpen;
                     });
                   },
                 ),
               ],
             ),
           ),
-
-          // Dropdown items displayed only when isDropdownOpen is true
           if (isDropdownOpen)
             Container(
-              width: double.infinity, // Full width of the screen
-              color: Colors.white, // Background color of the dropdown menu
+              width: double.infinity,
+              color: Colors.white,
               child: Column(
                 children: [
-                  // The "Furniture" title inside the dropdown, aligned to the left
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
                     child: Align(
-                      alignment: Alignment.centerLeft, // Align text to the start (left)
-                      child: const Text(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
                         'Furniture',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black, // Title text color
+                          color: Colors.black,
                         ),
                       ),
                     ),
                   ),
-
-                  // The list of items - Limited to the first 7 items
-                  ...dropdownItems.take(7).map((Map<String, String> item) { // Limit to 7 items
+                  ...dropdownItems.take(7).map((Map<String, String> item) {
                     return _buildCustomRow(
-                      icon: Icons.star, // Use a default icon or customize per item
-                      title: item['displayName'] ?? '', // Use the dynamically fetched display name
-                      subtitle: '${item['typeOptions']} | Size: ${item['sizes']}', // Use fetched typeOptions and selected size
-                      trailingNumber: '1', // Customize this as needed
+                      icon: Icons.star,
+                      title: item['displayName'] ?? '',
+                      subtitle: '${item['typeOptions']} | Size: ${item['sizes']}',
+                      trailingNumber: '1',
                     );
                   }).toList(),
                 ],
@@ -146,7 +145,6 @@ class _BedroomLayoutState extends State<BedroomLayout> {
     );
   }
 
-  // Helper method to build a custom row
   Widget _buildCustomRow({
     required IconData icon,
     required String title,
@@ -154,31 +152,31 @@ class _BedroomLayoutState extends State<BedroomLayout> {
     required String trailingNumber,
   }) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0), // Padding inside each item
+      padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween, // Space between text and trailing number
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
-              Icon(icon, size: 20, color: Colors.orange), // Icon at the start of the row
-              const SizedBox(width: 8), // Space between icon and text
+              Icon(icon, size: 20, color: Colors.orange),
+              const SizedBox(width: 8),
               Column(
-                crossAxisAlignment: CrossAxisAlignment.start, // Align text to the start
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     title,
                     style: const TextStyle(
-                      fontSize: 14, // Title font size
-                      fontWeight: FontWeight.bold, // Bold title
-                      color: Colors.black, // Text color
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
                     ),
                   ),
                   Text(
                     subtitle,
                     style: const TextStyle(
-                      fontSize: 12, // Subtitle font size
-                      fontWeight: FontWeight.normal, // Normal weight
-                      color: Colors.grey, // Subtitle color
+                      fontSize: 12,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.grey,
                     ),
                   ),
                 ],
@@ -190,7 +188,7 @@ class _BedroomLayoutState extends State<BedroomLayout> {
             style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
-              color: Colors.black, // Text color for number
+              color: Colors.black,
             ),
           ),
         ],
